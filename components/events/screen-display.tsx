@@ -10,6 +10,8 @@ import { pusherClient } from "@/lib/pusher";
 import { triggerConfetti } from "@/lib/triggerConfetti";
 import QRCode from "react-qr-code";
 import Link from "next/link";
+import { toSentenceCase } from "@/lib/utils";
+import { TipUsageDisclosure } from "@/types/tipusagedisclosure.types";
 
 type Props = {
   amountToRaise: number;
@@ -19,6 +21,8 @@ type Props = {
   eventCode: string;
   hostName: string;
   eventSlug: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  tipUsageDisclosure: any;
 };
 
 type NewTipEvent = {
@@ -31,8 +35,8 @@ export const ScreenDisplay = ({
   eventName,
   eventId,
   eventCode,
-  hostName,
   eventSlug,
+  tipUsageDisclosure,
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [wakeLock, setWakeLock] = useState<WakeLockSentinel | null>(null);
@@ -163,6 +167,23 @@ export const ScreenDisplay = ({
       activityIntervalRef.current = null;
     }
   };
+
+  const maxChars = 20;
+
+  // Build the string
+  let text = "";
+  const displayedWelfare = [];
+  for (let i = 0; i < tipUsageDisclosure.length; i++) {
+    const usageType = toSentenceCase(tipUsageDisclosure[i].usageType);
+    const nextText = text ? `${text}, ${usageType}` : usageType;
+    if (nextText.length > maxChars) {
+      // Stop and add ellipsis
+      text += "_";
+      break;
+    }
+    text = nextText;
+    displayedWelfare.push(tipUsageDisclosure[i]);
+  }
 
   // Enhanced video setup with multiple formats for better compatibility
   const setupVideo = () => {
@@ -426,9 +447,25 @@ export const ScreenDisplay = ({
         <Title
           size="lg"
           color="white"
+          className="-mt-6"
         >
           &pound;{amountRaised.toLocaleString()}
         </Title>
+
+        <div >
+          <Paragraph
+            weight="bold"
+            color="white"
+          >
+            For{" "}
+            {tipUsageDisclosure.map((item: TipUsageDisclosure, index: number) => (
+              <span key={item.id}>
+                {toSentenceCase(item.usageType)}{" "}
+                {index < tipUsageDisclosure.length - 1 ? ", " : ""}
+              </span>
+            ))}
+          </Paragraph>
+        </div>
 
         <div className="flex w-full max-w-xl items-center gap-2">
           {/* Progress Bar */}
@@ -469,17 +506,17 @@ export const ScreenDisplay = ({
           tipmanna.live
         </Paragraph>
 
-        <div className="mt-6 flex flex-col items-center justify-center gap-6">
-          <div className="-mb-4 rounded border border-[#667185] bg-[#212121] px-2 py-1 text-center text-white">
-            {eventName}
-          </div>
-
+        <div className="mt-10 flex flex-col items-center justify-center gap-1">
           <QRCode
             size={100}
             bgColor="white"
             fgColor="black"
             value={scanLink}
           />
+
+          <div className="-mb-4 rounded border border-[#667185] bg-[#212121] px-2 py-1 text-center text-white">
+            {eventName}
+          </div>
         </div>
 
         <button

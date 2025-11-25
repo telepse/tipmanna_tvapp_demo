@@ -3,6 +3,7 @@ import { twMerge } from "tailwind-merge";
 
 // Local imports
 import { Event } from "@/types/event.types";
+import { WholeWord } from "lucide-react";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -159,6 +160,15 @@ export const getStatusColor = (status: EventStatus | string) => {
 export function truncateText(text: string, limit = 20) {
   if (typeof text !== "string") return "";
   return text.length > limit ? text.slice(0, limit) + "..." : text;
+}
+
+// ------- to sentence case -------- //
+export function toSentenceCase(str: string) {
+  return str
+    .toLowerCase()
+    .split("_")
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 }
 
 // ------- Format UTC time -------- //

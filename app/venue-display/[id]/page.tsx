@@ -18,6 +18,7 @@ export default async function VenueDisplay({ params }: Props) {
     hostName,
     eventCode,
     eventSlug,
+    tipUsageDisclosure,
   } = event;
 
   return (
@@ -29,6 +30,7 @@ export default async function VenueDisplay({ params }: Props) {
       eventCode={eventCode}
       hostName={hostName}
       eventSlug={eventSlug}
+      tipUsageDisclosure={tipUsageDisclosure}
     />
   );
 }

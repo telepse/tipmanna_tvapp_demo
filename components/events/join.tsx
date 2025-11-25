@@ -244,13 +244,14 @@ export const JoinEventClient = () => {
                     <Button
                       variant="outline"
                       onClick={() => handleOverlayDisplay(event.id)}
+                      disabled
                     >
                       {overlayEventId === event.id ? (
                         <div className="flex items-center gap-2">
                           <Loader2 className="size-4 animate-spin" /> Loading...
                         </div>
                       ) : (
-                        "Load venue display"
+                        "Load overlay"
                       )}
                     </Button>
                   </div>
