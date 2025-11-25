@@ -81,19 +81,19 @@ export const EventStatus = ({
   return (
     <p className="text-[10px]">
       {state.status === "future" && (
-        <span className="bg-gray rounded-md px-2 py-1 text-black">
+        <span className="bg-gray-50 rounded-md px-2 py-1 text-black">
           Not started
         </span>
       )}
 
       {state.status === "not_started" && (
-        <span className="bg-gray rounded-md px-2 py-1 text-black">
+        <span className="bg-gray-50 rounded-md px-2 py-1 text-black">
           Not started
         </span>
       )}
 
       {state.status === "running" && (
-        <span className="bg-moonstone-blue rounded-md px-2 py-1">Ongoing</span>
+        <span className="bg-[#7aadcc] rounded-md px-2 py-1">Ongoing</span>
       )}
 
       {state.status === "completed" && (
