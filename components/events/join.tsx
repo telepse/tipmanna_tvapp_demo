@@ -71,7 +71,7 @@ export const JoinEventClient = () => {
   const onSubmit = async (values: JoinEventFormData) => {
     setLoading(true);
 
-    const res = await searchEventsByCodeAction(values.eventCode.trim());
+    const res = await searchEventsByCodeAction(values.eventCode.toUpperCase());
 
     if (res.success) {
       const mapped = res.data.map((event: Event) => ({
