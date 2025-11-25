@@ -5,7 +5,7 @@ interface Props {
   params: Promise<{ id: string }>;
 }
 
-export default async function RoomPage({ params }: Props) {
+export default async function VenueDisplay({ params }: Props) {
   const { id } = await params;
 
   const { data: event } = await getEventByIdAction(id);

@@ -452,7 +452,7 @@ export const ScreenDisplay = ({
 
           {/* Target Icon */}
           <div className="">
-            <Gem className="text-primary fill-primary size-6 sm:size-10" />
+            <Gem className="size-6 fill-[#f57d11] text-[#f57d11] sm:size-10" />
             <Paragraph
               weight="bold"
               color="white"

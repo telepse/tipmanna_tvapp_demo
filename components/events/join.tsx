@@ -38,6 +38,7 @@ export const JoinEventClient = () => {
   const [loading, setLoading] = useState(false);
   const [current, setCurrent] = useState(0);
   const [loadingEventId, setLoadingEventId] = useState<string | null>(null);
+  const [overlayEventId, setOverlayEventId] = useState<string | null>(null);
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -96,6 +97,11 @@ export const JoinEventClient = () => {
   const handleEnterEvent = (id: string) => {
     setLoadingEventId(id);
     router.push(`/venue-display/${id}`);
+  };
+
+  const handleOverlayDisplay = (id: string) => {
+    setOverlayEventId(id);
+    router.push(`/overlay-display/${id}`);
   };
 
   const next = () => {
@@ -235,7 +241,18 @@ export const JoinEventClient = () => {
                         "Load full display"
                       )}
                     </Button>
-                    <Button variant="outline">Load overlay display</Button>
+                    <Button
+                      variant="outline"
+                      onClick={() => handleOverlayDisplay(event.id)}
+                    >
+                      {overlayEventId === event.id ? (
+                        <div className="flex items-center gap-2">
+                          <Loader2 className="size-4 animate-spin" /> Loading...
+                        </div>
+                      ) : (
+                        "Load venue display"
+                      )}
+                    </Button>
                   </div>
                 </div>
               );
